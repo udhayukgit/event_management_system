@@ -5,7 +5,7 @@ Event management system - Django
 The first thing to do is to clone the repository:
 
 ```sh
-$ git clone https://github.com/nobita2021/event_management_system.git
+$ git clone https://github.com/nobitadore/event_management_system.git
 $ cd project
 ```
 
