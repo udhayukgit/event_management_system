@@ -1,0 +1,80 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style type="text/css">
+  .row, .navbar .container-fluid { justify-content: center; }
+  .dataTables_filter { float: right; }
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-8">
+
+        {% if messages  %}
+          <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <i class="material-icons">close</i>
+            </button>
+            {% for message in messages %}
+                    <span>
+                      {{message }} </span>
+            {% endfor %}
+                  </div>
+        {% endif %}
+            <div class="card">
+              {% if user.is_authenticated %}
+                
+                <div class="card-header card-header-primary" style="padding-bottom:  30px;">
+                    <h4 class="card-title " style="  position: absolute;">Events </h4> 
+                </div>
+                    {% endif %}
+                <div class="card-body">
+                    <div>
+                        <table id="data-list-table" class="table">
+                            <thead class=" text-primary">
+                                <th>Event Name</th>
+                                <th>Book</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                
+                            </thead>
+                            <tbody>
+                              {% for data in book_data %}
+                              <tr>
+                              <td>{{data.event_name}}</td>
+                              <td>{{data.book}}</td>
+                              <td>{{data.start_date}}</td>
+                              <td>{{data.end_date}}</td>
+                              
+                              {% endfor%}
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script type="text/javascript">
+  var oTable=$('#data-list-table').DataTable({
+    scrollY: false,
+    scrollX: false,
+    paging: false,
+    bInfo:false,
+    iDisplayLength: -1,
+    columnDefs: [{ 'orderable': false, 'targets': -1 }],
+});
+</script>
+
+{% endblock javascripts %}

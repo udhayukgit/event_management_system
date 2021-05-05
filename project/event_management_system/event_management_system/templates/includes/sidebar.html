@@ -1,0 +1,32 @@
+
+{% if user.is_authenticated %}
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="/static/assets/img/sidebar-1.jpg">
+      <div class="logo">
+        <a target="_blank" rel="noopener noreferrer" 
+           target="_blank" rel="noopener noreferrer" 
+           href="https://www.creative-tim.com/product/material-dashboard-django" class="simple-text logo-normal">
+          Event Management <br/>System
+        </a>
+      </div>
+      
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item {% if 'books' == page_name %} active {% endif %}">
+            <a class="nav-link" href="{% url 'books' %}">
+              <i class="material-icons ">books</i>
+              <p>Books</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'events' == page_name %} active {% endif %}">
+            <a class="nav-link" href="{% url 'events' %}">
+              <i class="material-icons ">events</i>
+              <p>events</p>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+      
+
+    </div>
+{% endif %}

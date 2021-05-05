@@ -1,0 +1,125 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style type="text/css">
+  .row, .navbar .container-fluid { justify-content: center; }
+   .bold {color: black !important; font-weight: bold;}
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">{% if page_edit %} Edit {% else %} Add {% endif %} Event</h4>
+                </div>
+                <div class="card-body">
+                  <form role="form" method="post" action="" autocomplete="off" novalidate>
+              
+                    {% csrf_token %} 
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bold">{{ form.event_name.label }} : </label>
+                          {{ form.event_name }}
+                          <span class="text-danger">{{ form.event_name.errors.as_text }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bold">{{ form.book.label }} : </label>
+                          {{ form.book }}
+                          <span class="text-danger">{{ form.book.errors.as_text }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bold">{{ form.start_date.label }} : </label>
+                          {{ form.start_date }}
+                          <span class="text-danger">{{ form.start_date.errors.as_text }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bold">{{ form.end_date.label }} : </label>
+                          {{ form.end_date }}
+                          <span class="text-danger">{{ form.end_date.errors.as_text }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bold">{{ form.maximum_participants.label }} : </label>
+                          {{ form.maximum_participants }}
+                          <span class="text-danger">{{ form.maximum_participants.errors.as_text }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    
+
+                    <br />
+
+                    <button type="submit" name="save" class="btn btn-primary pull-left">{% if page_edit %} Update {% else %} Save {% endif %}</button>
+
+                    &nbsp; &nbsp; 
+                    
+
+                    <div class="clearfix"></div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  $("#id_start_date:not([readonly])").datetimepicker({
+      format: 'd/m/Y',
+       timepicker:false,
+       minDate : "0",
+       onShow:function( ct ){
+         this.setOptions({
+          maxDate:jQuery('#id_end_date').val()?jQuery('#id_end_date').val():false
+         })
+       }
+    });
+  $("#id_end_date:not([readonly])").datetimepicker({
+      format: 'd/m/Y',
+       timepicker:false,
+       minDate : "0",
+       onShow:function( ct ){
+         this.setOptions({
+          minDate:jQuery('#id_start_date').val()?jQuery('#id_start_date').val():false
+         })
+        },
+    });
+</script>
+
+{% endblock javascripts %}

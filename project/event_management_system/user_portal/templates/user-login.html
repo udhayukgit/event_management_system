@@ -1,0 +1,100 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Login {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<style type="text/css">
+  .row, .navbar .container-fluid { justify-content: center; }
+  .bold {color: black !important; font-weight: bold;}
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-md-5">
+      {% if messages  %}
+          <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <i class="material-icons">close</i>
+            </button>
+            {% for message in messages %}
+                    <span>
+                      {{message }} </span>
+            {% endfor %}
+                  </div>
+        {% endif %}
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">
+            User Login
+          </h4>
+        </div>
+        <div class="card-body">
+
+          <h6 class="card-category">
+              {% if msg %}
+                <span class="text-danger">{{ msg | safe }}</span>
+              {% endif %}  
+          </h6>
+          
+          <br />
+
+          <form role="form" method="post" action="" autocomplete="off" novalidate>
+              
+            {% csrf_token %} 
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="bold">{{ form.email.label }}</label>
+                  {{ form.email }}
+                  <span class="text-danger">{{ form.email.errors.as_text }}</span>
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="bold">{{ form.password.label }}</label>
+                  {{ form.password }}
+                  <span class="text-danger">{{ form.password.errors.as_text }}</span>
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <button type="submit" name="login" class="btn btn-primary pull-left">Login</button>
+
+            &nbsp; &nbsp;  <span class="pull-right">
+              Don't have an account? <a href="{% url 'signup' %}" class="text-primary">Create</a>
+            </span>
+            
+
+            <div class="clearfix"></div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script type="text/javascript">
+  $(document).ready(function () {
+      $(".form-group").addClass("is-filled")
+  });
+</script>
+
+{% endblock javascripts %}

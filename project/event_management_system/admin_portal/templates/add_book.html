@@ -1,0 +1,78 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style type="text/css">
+  .row, .navbar .container-fluid { justify-content: center; }
+  .bold {color: black !important; font-weight: bold;}
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">{% if page_edit %} Edit {% else %} Add {% endif %} Book</h4>
+                </div>
+                <div class="card-body">
+                  <form role="form" method="post" action="" autocomplete="off" novalidate>
+              
+                    {% csrf_token %} 
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bold">{{ form.title.label }} : </label>
+                          {{ form.title }}
+                          <span class="text-danger">{{ form.title.errors.as_text }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <br />
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bold">{{ form.description.label }} : </label>
+                          {{ form.description }}
+                          <span class="text-danger">{{ form.description.errors.as_text }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bold">{{ form.author.label }} : </label>
+                          {{ form.author }}
+                          <span class="text-danger">{{ form.author.errors.as_text }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <br />
+
+                    <button type="submit" name="save" class="btn btn-primary pull-left">{% if page_edit %} Update {% else %} Save {% endif %}</button>
+
+                    &nbsp; &nbsp; 
+                    
+
+                    <div class="clearfix"></div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

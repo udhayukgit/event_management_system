@@ -1,0 +1,77 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style type="text/css">
+  .row, .navbar .container-fluid { justify-content: center; }
+  .dataTables_filter { float: right; }
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-8">
+
+        {% if messages  %}
+          <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <i class="material-icons">close</i>
+            </button>
+            {% for message in messages %}
+                    <span>
+                      {{message }} </span>
+            {% endfor %}
+                  </div>
+        {% endif %}
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title " style=" margin-top: 12px; position: absolute;">Books </h4> 
+                    <a href="{% url 'add_book' %}" class="btn btn-info pull-right">Add Book<div class="ripple-container"></div></a>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <table id="data-list-table" class="table">
+                            <thead class=" text-primary">
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Author</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody>
+                              {% for data in book_data %}
+                              <tr>
+                              <td>{{data.title}}</td>
+                              <td>{{data.description}}</td>
+                              <td>{{data.author}}</td>
+                              <td><a href="/admin/edit_book/{{data.id}}/" title="Edit" class="action-icon">Edit</a> | <a href="/admin/delete_book/{{data.id}}/" title="Delete" class="action-icon">Delete</a>
+                              </td>
+                              {% endfor%}
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script type="text/javascript">
+  var oTable=$('#data-list-table').DataTable({
+    scrollY: false,
+    scrollX: false,
+    paging: false,
+    bInfo:false,
+    iDisplayLength: -1,
+    columnDefs: [{ 'orderable': false, 'targets': -1 }],
+});
+</script>
+
+{% endblock javascripts %}
